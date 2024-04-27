@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\activity_main.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\fragment_settings.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\fragment_settings.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\activity_login.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\activity_sign_up.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\activity_splash.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\fragment_home.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\dialog_forgot.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\dialog_forgot.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\nav_header.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\nav_header.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-mergeDebugResources-36:\\layout\\fragment_preference.xml",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\fragment_preference.xml"
+    },
+    {
+        "merged": "com.example.appcuriosity.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "com.example.appcuriosity.app-main-39:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.appcuriosity.app-mergeDebugResources-36:/layout/nav_header.xml",
+        "source": "com.example.appcuriosity.app-main-39:/layout/nav_header.xml"
+    }
+]
