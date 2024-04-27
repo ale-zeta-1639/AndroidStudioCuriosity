@@ -1,2 +1,2 @@
 # AndroidStudioCuriosity
- Progetto Uni Android Studio 
+ Bello questo progetto Android Studio, speriamo che vada
