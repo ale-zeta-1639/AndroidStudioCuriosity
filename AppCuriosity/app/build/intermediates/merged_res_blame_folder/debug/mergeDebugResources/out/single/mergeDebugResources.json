@@ -24,10 +24,6 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_lock_24.xml"
     },
     {
-        "merged": "com.example.appcuriosity.app-debug-37:/layout_activity_main.xml.flat",
-        "source": "com.example.appcuriosity.app-main-39:/layout/activity_main.xml"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\raw_hello.json.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\raw\\hello.json"
     },
@@ -44,12 +40,12 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\custom_edittext.xml"
     },
     {
-        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_email_24.xml.flat",
-        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_email_24.xml"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_lock_reset_24.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_lock_reset_24.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_email_24.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_email_24.xml"
     },
     {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_dialog_forgot.xml.flat",
@@ -80,6 +76,14 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_check_layout.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\check_layout.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_person_24.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_person_24.xml"
+    },
+    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\ic_launcher_foreground.xml"
     },
@@ -108,28 +112,32 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_menu_up_background.png.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\menu_up_background.png"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_fragment_home.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\fragment_home.xml"
     },
     {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_user.png.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\user.png"
+    },
+    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_home_24.xml.flat",
-        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_home_24.xml"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_android_24.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_android_24.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_home_24.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_home_24.xml"
     },
     {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_activity_login.xml.flat",
@@ -140,12 +148,12 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_settings_24.xml.flat",
-        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_settings_24.xml"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_activity_sign_up.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_settings_24.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_settings_24.xml"
     },
     {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\layout_activity_main.xml.flat",
@@ -156,12 +164,12 @@
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\layout\\activity_splash.xml"
     },
     {
-        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_check_box_24.xml.flat",
-        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_check_box_24.xml"
-    },
-    {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_password_24.xml.flat",
         "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_password_24.xml"
+    },
+    {
+        "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\drawable_baseline_check_box_24.xml.flat",
+        "source": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-main-39:\\drawable\\baseline_check_box_24.xml"
     },
     {
         "merged": "C:\\Android\\daemon\\8.4\\com.example.appcuriosity.app-debug-37:\\mipmap-xxxhdpi_ic_launcher.webp.flat",

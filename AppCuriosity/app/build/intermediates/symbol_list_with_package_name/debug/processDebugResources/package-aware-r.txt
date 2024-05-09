@@ -3028,6 +3028,7 @@ drawable baseline_lock_reset_24
 drawable baseline_logout_24
 drawable baseline_menu_24
 drawable baseline_password_24
+drawable baseline_person_24
 drawable baseline_settings_24
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -3162,6 +3163,7 @@ drawable notify_panel_notification_icon_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable user
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3176,6 +3178,7 @@ id SHOW_PROGRESS
 id SYM
 id TOP_END
 id TOP_START
+id User
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -3402,6 +3405,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageViewEye
 id immediateStop
 id included
 id indeterminate
@@ -3422,6 +3426,7 @@ id line1
 id line3
 id linear
 id listMode
+id listPreferences
 id list_item
 id loginButton
 id loginRedirectText
@@ -3491,6 +3496,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id nameUser
 id nav_home
 id nav_logout
 id nav_preference
@@ -3548,6 +3554,7 @@ id percent
 id pin
 id position
 id postLayout
+id preference_checkbox
 id pressed
 id progress_circular
 id progress_horizontal
@@ -3823,6 +3830,7 @@ layout activity_sign_up
 layout activity_splash
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
+layout check_layout
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -5230,6 +5238,7 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style roundedImageViewRounded
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth

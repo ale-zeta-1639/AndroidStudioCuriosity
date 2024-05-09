@@ -4,20 +4,37 @@ package com.example.appcuriosity.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.appcuriosity.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class NavHeaderBinding implements ViewBinding {
   @NonNull
   private final LinearLayout rootView;
 
-  private NavHeaderBinding(@NonNull LinearLayout rootView) {
+  @NonNull
+  public final TextView User;
+
+  @NonNull
+  public final ImageView imageViewEye;
+
+  @NonNull
+  public final TextView nameUser;
+
+  private NavHeaderBinding(@NonNull LinearLayout rootView, @NonNull TextView User,
+      @NonNull ImageView imageViewEye, @NonNull TextView nameUser) {
     this.rootView = rootView;
+    this.User = User;
+    this.imageViewEye = imageViewEye;
+    this.nameUser = nameUser;
   }
 
   @Override
@@ -43,10 +60,31 @@ public final class NavHeaderBinding implements ViewBinding {
 
   @NonNull
   public static NavHeaderBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.User;
+      TextView User = ViewBindings.findChildViewById(rootView, id);
+      if (User == null) {
+        break missingId;
+      }
 
-    return new NavHeaderBinding((LinearLayout) rootView);
+      id = R.id.imageViewEye;
+      ImageView imageViewEye = ViewBindings.findChildViewById(rootView, id);
+      if (imageViewEye == null) {
+        break missingId;
+      }
+
+      id = R.id.nameUser;
+      TextView nameUser = ViewBindings.findChildViewById(rootView, id);
+      if (nameUser == null) {
+        break missingId;
+      }
+
+      return new NavHeaderBinding((LinearLayout) rootView, User, imageViewEye, nameUser);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

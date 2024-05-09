@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-41:12
-INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-41:12
-INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-41:12
-INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-41:12
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-42:12
+INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:1-42:12
 MERGED from [androidx.databinding:viewbinding:8.3.0] C:\Android\caches\transforms-3\54b0a7f4d186d8d87721402fc13b6937\transformed\viewbinding-8.3.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Android\caches\transforms-3\38e94feb89e18025fcf7c4d01ddea878\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Android\caches\transforms-3\d9d8c7bcb0b0ace6c659cf08931cb34d\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
@@ -71,8 +71,8 @@ MERGED from [androidx.print:print:1.0.0] C:\Android\caches\transforms-3\fe65c256
 	xmlns:android
 		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:5:5-39:19
-INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:5:5-39:19
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:5:5-40:19
+INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:5:5-40:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Android\caches\transforms-3\38e94feb89e18025fcf7c4d01ddea878\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Android\caches\transforms-3\38e94feb89e18025fcf7c4d01ddea878\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Android\caches\transforms-3\d9d8c7bcb0b0ace6c659cf08931cb34d\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -132,47 +132,47 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Android\
 	android:dataExtractionRules
 		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:7:9-65
 activity#com.example.appcuriosity.SplashActivity
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:15:9-23:20
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:15:9-19:20
 	android:exported
 		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:17:13-36
 	android:name
 		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:16:13-43
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:18:13-22:29
-action#android.intent.action.MAIN
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:19:17-69
-	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:19:25-66
-category#android.intent.category.LAUNCHER
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:21:17-77
-	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:21:27-74
 activity#com.example.appcuriosity.SignUpActivity
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:24:9-26:40
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:20:9-22:40
 	android:exported
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:26:13-37
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:22:13-37
 	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:25:13-43
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:21:13-43
 activity#com.example.appcuriosity.LoginActivity
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:27:9-30:20
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:23:9-26:20
 	android:exported
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:29:13-36
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:25:13-36
 	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:28:13-42
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:24:13-42
 activity#com.example.appcuriosity.MainActivity
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:31:9-38:20
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:27:9-39:20
 	android:exported
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:34:13-36
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:30:13-36
 	android:theme
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:33:13-54
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:29:13-54
 	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:32:13-41
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:28:13-41
 meta-data#android.app.lib_name
-ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:35:13-37:35
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:31:13-33:35
 	android:value
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:37:17-33
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:33:17-33
 	android:name
-		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:36:17-52
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:32:17-52
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:34:13-38:29
+action#android.intent.action.MAIN
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:35:17-69
+	android:name
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml:37:27-74
 uses-sdk
 INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Lavori\Universita\3anno2Semestre\Android\AppCuriosity\app\src\main\AndroidManifest.xml

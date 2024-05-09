@@ -20,6 +20,7 @@ drawable baseline_lock_reset_24
 drawable baseline_logout_24
 drawable baseline_menu_24
 drawable baseline_password_24
+drawable baseline_person_24
 drawable baseline_settings_24
 drawable custom_edittext
 drawable ic_launcher_background
@@ -27,6 +28,8 @@ drawable ic_launcher_foreground
 drawable lavander_border
 drawable lavander_fill
 drawable menu_up_background
+drawable user
+id User
 id btnReset
 id desc
 id dialogBox
@@ -36,6 +39,8 @@ id editBox
 id forgotTitle
 id forgot_password
 id fragment_container
+id imageViewEye
+id listPreferences
 id loginButton
 id loginRedirectText
 id loginText
@@ -43,11 +48,13 @@ id login_email
 id login_password
 id lottie
 id main
+id nameUser
 id nav_home
 id nav_logout
 id nav_preference
 id nav_settings
 id nav_view
+id preference_checkbox
 id signUpRedirectText
 id signUp_button
 id signUp_confirmPassword
@@ -58,6 +65,7 @@ layout activity_login
 layout activity_main
 layout activity_sign_up
 layout activity_splash
+layout check_layout
 layout dialog_forgot
 layout fragment_home
 layout fragment_preference
@@ -80,5 +88,6 @@ string project_id
 style Base.Theme.AppCuriosity
 style Theme.AppCuriosity
 style Theme.MainActivity
+style roundedImageViewRounded
 xml backup_rules
 xml data_extraction_rules
