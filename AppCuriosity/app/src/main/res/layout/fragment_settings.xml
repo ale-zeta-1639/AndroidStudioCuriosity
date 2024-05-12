@@ -1,18 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SettingsFragment">
+    android:layout_height="wrap_content"
+    tools:context=".SettingsFragment"
+    android:focusableInTouchMode="true"
+    android:background="@color/dark_gray">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginBottom="542dp"
+        android:background="@color/lavander_back"
+        android:text="Scegli \n formato ora"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="426dp"
+        android:background="@color/lavander_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RadioButton
+            android:id="@+id/radioButtonOre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ora"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minuti"
+            android:textColor="@color/white" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hello fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavander"/>
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginBottom="171dp"
+        android:background="@color/lavander_back"
+        android:text="Tempo ricezione \n notifiche"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_conferma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="180dp"
+        android:layout_height="213dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="57dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button_conferma"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Seleziona Tempo"
+                android:inputType="none"
+                android:textColor="@color/white"
+                android:background="@color/lavander_back"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_conferma"
+        android:layout_width="175dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginEnd="118dp"
+        android:text="Conferma"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

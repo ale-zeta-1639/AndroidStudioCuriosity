@@ -52,4 +52,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.airbnb.android:lottie:3.4.1")
+    //annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
 }

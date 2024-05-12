@@ -6,6 +6,8 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="lavander">#8692f7</color>
+    <color name="lavander_back">#6A8692F7</color>
+    <color name="dark_gray">#222222</color>
     <color name="TEAL_200">#FF03DAC5</color>
     <color name="TEAL_700">#FF018786</color>
     <color name="Background">#030b47</color>
