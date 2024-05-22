@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
                         val mainIntent = Intent(this, MainActivity::class.java)
                         startActivity(mainIntent)
                     }else{
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Non registrato o Controlla i campi", Toast.LENGTH_SHORT).show()
                     }
                 }
             }else{

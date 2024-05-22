@@ -6,12 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appcuriosity.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseDB : FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +21,6 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-
 
         binding.signUpButton.setOnClickListener{
             val email = binding.signUpEmail.text.toString()
@@ -30,6 +31,7 @@ class SignUpActivity : AppCompatActivity() {
                 if (password == confirmPassword){
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener() {
                         if(it.isSuccessful){
+                            saveData(email)
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         }else{
@@ -48,4 +50,19 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(loginIntent)
         }
     }
+
+    private fun saveData(email:String){
+        val user = User(email)
+        user.setFirst(true)
+
+        firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        firebaseDB.getReference("Users").child(firebaseAuth.currentUser!!.uid).setValue(user).addOnCompleteListener{ task ->
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Sign Up completed", Toast.LENGTH_SHORT).show()
+                }
+        }.addOnFailureListener{e ->
+            Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

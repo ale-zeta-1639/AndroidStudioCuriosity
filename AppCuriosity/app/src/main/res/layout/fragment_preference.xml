@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PreferenceFragment">
+    tools:context=".PreferenceFragment"
+    android:background="@color/dark_gray">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Preferenze argomenti"
+        android:text="Seleziona gli argomenti"
         android:textSize="20dp"
-        android:textColor="@color/black"/>
+        android:paddingTop="10dp"
+        android:textColor="@color/white"
+        android:background="@color/lavander_back"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,6 +24,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
         android:dividerHeight="10.0sp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

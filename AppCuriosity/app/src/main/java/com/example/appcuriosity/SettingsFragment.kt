@@ -10,7 +10,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.RadioGroup
-import com.example.appcuriosity.databinding.FragmentSettingsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,11 +62,11 @@ class SettingsFragment : Fragment() {
         radio.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.radioButtonOre -> {
-                    autoComplete.setText("Seleziona Tempo")
+                    autoComplete.setText("")
                     autoComplete.setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item,hours))
                 }
                 R.id.radioButtonMin -> {
-                    autoComplete.setText("Seleziona Tempo")
+                    autoComplete.setText("")
                     autoComplete.setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item,min))
                 }
             }
