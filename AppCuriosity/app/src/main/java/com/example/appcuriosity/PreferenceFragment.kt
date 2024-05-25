@@ -1,12 +1,17 @@
 package com.example.appcuriosity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,8 +24,22 @@ class PreferenceFragment : Fragment() {
     private lateinit var recycleView: RecyclerView
     private lateinit var dataList: ArrayList<DataClass>
     private lateinit var myAdapter : AdapterClass
+    private lateinit var firebaseDB : FirebaseDatabase
 
     lateinit var titleList: Array<String>
+    private lateinit var myUserId: String
+
+    private var scienza :Boolean = false
+    private var natura :Boolean = false
+    private var storia :Boolean = false
+    private var arte :Boolean = false
+    private var corpo :Boolean = false
+    private var viaggi :Boolean = false
+    private var cibo :Boolean = false
+
+    /* base output per Fragment
+    * Toast.makeText(requireContext(), "Tutto ok", Toast.LENGTH_SHORT).show()
+    * */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +78,98 @@ class PreferenceFragment : Fragment() {
         recycleView.setHasFixedSize(true)
         myAdapter = AdapterClass(dataList)
         recycleView.adapter = myAdapter
+        recycleView.isClickable = true
+
+        //val titolo = view.findViewById<TextView>(R.id.header_title)
+        myUserId = requireArguments().getString("userId").toString()
+        //initializeCheckboxValues(myUserId)
+
+        if (myUserId.isEmpty())
+            Toast.makeText(requireContext(), "Per niente OK", Toast.LENGTH_SHORT).show()
+
+        /* Gestione del click della CheckBox
+         * riassegnando il valore di true o false alle variabili booleane corrispondenti ad ogni checkbox
+         * */
+        myAdapter.onCheckboxClick = { task, isChecked ->
+
+            when (task.dataTitle) {
+                "Scienza e Tecnologia" -> {
+                    scienza = updateBooleanCheck(scienza)
+                    upDateOnDB(myUserId, "scienza", scienza) }
+                "Natura e Ambiente" -> {
+                    natura = updateBooleanCheck(natura)
+                    upDateOnDB(myUserId, "natura", natura) }
+                "Storia e Cultura" -> {
+                    storia = updateBooleanCheck(storia)
+                    upDateOnDB(myUserId, "storia", storia) }
+                "Arte e Intrattenimento" -> {
+                    arte = updateBooleanCheck(arte)
+                    upDateOnDB(myUserId, "arte", arte) }
+                "Corpo e Mente" -> {
+                    corpo = updateBooleanCheck(corpo)
+                    upDateOnDB(myUserId, "corpo", corpo) }
+                "Viaggi e Esplorazione"-> {
+                    viaggi = updateBooleanCheck(viaggi)
+                    upDateOnDB(myUserId, "viaggi", viaggi) }
+                "Cibo e Cucina"-> {
+                    cibo = updateBooleanCheck(cibo)
+                    upDateOnDB(myUserId, "cibo", cibo) }
+            }
+
+        }
+
+    }
+
+    private fun updateBooleanCheck(value:Boolean) : Boolean{
+        if(value == false) {return true}
+        else {return false}
+    }
+
+    private fun upDateOnDB(myUserId: String, variabile: String, newValue: Boolean){
+        firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        val myRef = firebaseDB.getReference("Users/$myUserId/$variabile")
+        myRef.setValue(newValue)
+            .addOnSuccessListener {
+                println("Dati aggiornati con successo") // Operazione riuscita
+                Toast.makeText(requireContext(), "Dati aggiornati", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                println("Errore durante l'aggiornamento dei dati: ${it.message}") // Gestione dell'errore
+                Toast.makeText(requireContext(), "Errore Update", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun initializeCheckboxValues(myUserId: String) {
+        val firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        val myRef = firebaseDB.getReference("Users/$myUserId")
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (childSnapshot in dataSnapshot.children) {
+                    val key = childSnapshot.key
+                    val value = childSnapshot.value as Boolean
+
+                    // Imposta lo stato delle checkbox in base ai valori salvati nel database
+                    when (key) {
+                        "scienza" -> scienza = value
+                        "natura" -> natura = value
+                        "storia" -> storia = value
+                        "arte" -> arte = value
+                        "corpo" -> corpo = value
+                        "viaggi" -> viaggi = value
+                        "cibo" -> cibo = value
+                    }
+                }
+
+                // Aggiorna l'interfaccia utente con i nuovi valori delle checkbox
+                myAdapter.notifyDataSetChanged()
+                //myAdapter.setCheckboxStates(scienza, natura, storia, arte, corpo, viaggi, cibo)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Errore durante il recupero dei dati", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun getData(){
@@ -67,6 +178,7 @@ class PreferenceFragment : Fragment() {
             dataList.add(dataClass)
         }
     }
+
 
     companion object {
         // TODO: Rename and change types and number of parameters

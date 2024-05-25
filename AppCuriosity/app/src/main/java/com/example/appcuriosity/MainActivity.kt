@@ -14,12 +14,18 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
+    private var userId: String = ""
+
+    /* base output
+    * Toast.makeText(this, "tutto OK", Toast.LENGTH_SHORT).show()
+    * */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        userId = intent.getStringExtra("userId").toString()  //ricezione dell'id utente dall'activity precedente
 
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -32,22 +38,55 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         if(savedInstanceState == null) {
+            // Creazione dell'istanza del Fragment e impostazione degli argomenti
+            val homeFragment = HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString("userId", userId)
+                }
+            }
+            // Aggiunta del Fragment iniziale
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
+                .replace(R.id.fragment_container, homeFragment).commit()
             navigationView.setCheckedItem(R.id.nav_home)
         }
+
     }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.nav_home -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
+            R.id.nav_home -> {
+                val homeFragment = HomeFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("userId", userId)
+                    }
+                }
 
-            R.id.nav_settings -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SettingsFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, homeFragment).commit()
+            }
 
-            R.id.nav_preference -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PreferenceFragment()).commit()
+            R.id.nav_settings -> {
+                val settingsFragment = SettingsFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("userId", userId)
+                    }
+                }
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, settingsFragment)
+                    .commit()
+            }
+
+            R.id.nav_preference -> {
+                val preferenceFragment = PreferenceFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("userId", userId)
+                    }
+                }
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, preferenceFragment)
+                    .commit()
+            }
 
             R.id.nav_logout -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
         }

@@ -5,6 +5,8 @@ import android.os.Parcelable
 
 data class DataClass(var dataTitle:String): Parcelable {
 
+    var isChecked : Boolean = false
+
     constructor(parcel: Parcel) : this(
         parcel.readString()!!
     ) {
