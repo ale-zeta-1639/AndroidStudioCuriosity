@@ -3,6 +3,7 @@ package com.example.appcuriosity
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
@@ -35,7 +36,8 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                     if(it.isSuccessful){
-                        /*aggiungere il download dell'id utente da DB*/
+                        Log.d("LoginActivity", "User authenticated successfully")
+
                         searchEmailInDatabase(email){ userId ->
                             if (userId != null) {
                                 val mainIntent = Intent(this, MainActivity::class.java).putExtra("userId", userId)
@@ -97,24 +99,24 @@ class LoginActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
         val usersRef = database.getReference("Users") // Nodo principale "users"
 
+        Log.d("LoginActivity", "Siamo nel Search")
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var emailFound: String? = null
+                var userFound: String? = null
 
                 for (userSnapshot in dataSnapshot.children) {
                     val userEmail = userSnapshot.child("mail").getValue(String::class.java)
                     if (userEmail == email) {
                         // Email trovata, esegui l'azione necessaria
                         //println("Email trovata: $userEmail in ${userSnapshot.key}")
-                        emailFound = userSnapshot.key
+                        userFound = userSnapshot.key
                         break
                     }
                 }
-                callback(emailFound)
+                callback(userFound)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                println("Error reading data: ${databaseError.message}")
                 callback(null)
             }
         })

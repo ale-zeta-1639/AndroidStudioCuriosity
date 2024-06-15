@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AdapterClass(private val dataList: ArrayList<DataClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
 
-    var onItemClick: ((DataClass) -> Unit)? = null
     var onCheckboxClick: ((DataClass, Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -21,28 +20,33 @@ class AdapterClass(private val dataList: ArrayList<DataClass>): RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem = dataList[position]
         holder.rvTitle.text = currentItem.dataTitle
-        holder.checkBox.isChecked = currentItem.isChecked
 
+        holder.checkBox.setOnCheckedChangeListener(null)
+        holder.checkBox.isChecked = currentItem.isChecked
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             currentItem.isChecked = isChecked
             onCheckboxClick?.invoke(currentItem, isChecked)
         }
-
     }
 
     /*
     Imposta lo stato delle checkbox in base ai valori booleani
     * */
     fun setCheckboxStates(scienza: Boolean, natura: Boolean, storia: Boolean, arte: Boolean, corpo: Boolean, viaggi: Boolean, cibo: Boolean) {
-
-
-
-        // Esempio:
-        // itemView.checkboxScienza.isChecked = scienza
-        // itemView.checkboxNatura.isChecked = natura
-        // itemView.checkboxStoria.isChecked = storia
-        // Imposta le altre checkbox con i valori booleani corrispondenti
+        dataList.forEach { data ->
+            when (data.dataTitle) {
+                "Scienza e Tecnologia" -> data.isChecked = scienza
+                "Natura e Ambiente" -> data.isChecked = natura
+                "Storia e Cultura" -> data.isChecked = storia
+                "Arte e Intrattenimento" -> data.isChecked = arte
+                "Corpo e Mente" -> data.isChecked = corpo
+                "Viaggi e Esplorazione" -> data.isChecked = viaggi
+                "Cibo e Cucina" -> data.isChecked = cibo
+            }
+        }
+        notifyDataSetChanged() // Notifica l'aggiornamento dei dati
     }
+
 
     override fun getItemCount(): Int {
         return dataList.size

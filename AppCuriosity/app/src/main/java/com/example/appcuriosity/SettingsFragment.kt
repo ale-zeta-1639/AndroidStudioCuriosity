@@ -1,15 +1,20 @@
 package com.example.appcuriosity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +31,15 @@ class SettingsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var firebaseDB: FirebaseDatabase
+
+    private lateinit var myUserId: String
+    private lateinit var autoComplete: AutoCompleteTextView
+    private lateinit var radio: RadioGroup
+    private lateinit var buttonConferma: Button
+    private var selectedTime: String? = null
+    private var isHour: Boolean = true // Default is hours
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,44 +53,88 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val itemHours = listOf("1","2","3","4","5","6","7","8","9","10","11","12")
-        //val itemMin = listOf("1","2","3","4","5","10","15","20","30","45")
+        myUserId = requireArguments().getString("userId").toString()
         val hours = resources.getStringArray(R.array.ora)
         val min = resources.getStringArray(R.array.minuti)
 
-        val radio = view.findViewById<RadioGroup>(R.id.radioGroup)
-        val autoComplete : AutoCompleteTextView = view.findViewById(R.id.auto_complete)
+        radio = view.findViewById<RadioGroup>(R.id.radioGroup)
+        autoComplete = view.findViewById(R.id.auto_complete)
+        buttonConferma = view.findViewById(R.id.button_conferma)
+
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,hours)
         autoComplete.setAdapter(adapter)
 
         radio.check(R.id.radioButtonOre)
-
         radio.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.radioButtonOre -> {
                     autoComplete.setText("")
                     autoComplete.setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item,hours))
+                    isHour = true
                 }
                 R.id.radioButtonMin -> {
                     autoComplete.setText("")
                     autoComplete.setAdapter(ArrayAdapter(requireContext(), R.layout.dropdown_item,min))
+                    isHour = false
                 }
             }
         }
 
-        autoComplete.onItemClickListener = AdapterView.OnItemClickListener{
-            adapterView, view, i, l ->
-            val itemSelected = adapterView.getItemAtPosition(i)
+        autoComplete.onItemClickListener = AdapterView.OnItemClickListener{ adapterView, view, i, l ->
+            selectedTime = adapterView.getItemAtPosition(i).toString()
         }
 
+        initializeSettings(myUserId)
+
+        buttonConferma.setOnClickListener {
+            updateSettingsInDB(myUserId, "valoreOra", selectedTime)
+            updateSettingsInDB(myUserId, "formatoOra", isHour)
+        }
+
+    }
+
+    private fun initializeSettings(myUserId: String) {
+        firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        val myRef = firebaseDB.getReference("Users/$myUserId")
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val selectedTime = dataSnapshot.child("valoreOra").value as String
+                val isHour = dataSnapshot.child("formatoOra").value as Boolean
+
+                if (selectedTime.isNotEmpty() && isHour != null) {
+                    if (isHour) {
+                        radio.check(R.id.radioButtonOre)
+                    } else {
+                        radio.check(R.id.radioButtonMin)
+                    }
+                    autoComplete.setText("$selectedTime")
+                }else{
+                    Toast.makeText(requireContext(), "Valori base non presenti", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Errore durante il recupero dei dati", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun updateSettingsInDB(myUserId: String, key: String, value: Any?) {
+        val myRef = firebaseDB.getReference("Users/$myUserId/$key")
+        myRef.setValue(value)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Dati aggiornati", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Errore durante l'aggiornamento", Toast.LENGTH_SHORT).show()
+            }
     }
 
     companion object {

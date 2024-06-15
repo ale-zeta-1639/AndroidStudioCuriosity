@@ -52,7 +52,7 @@ class PreferenceFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?)
-    : View? {
+            : View? {
         return inflater.inflate(R.layout.fragment_preference, container, false)
     }
 
@@ -80,12 +80,12 @@ class PreferenceFragment : Fragment() {
         recycleView.adapter = myAdapter
         recycleView.isClickable = true
 
-        //val titolo = view.findViewById<TextView>(R.id.header_title)
         myUserId = requireArguments().getString("userId").toString()
-        //initializeCheckboxValues(myUserId)
+
+        initializeCheckboxValues(myUserId)
 
         if (myUserId.isEmpty())
-            Toast.makeText(requireContext(), "Per niente OK", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "User is Empty", Toast.LENGTH_SHORT).show()
 
         /* Gestione del click della CheckBox
          * riassegnando il valore di true o false alle variabili booleane corrispondenti ad ogni checkbox
@@ -130,12 +130,10 @@ class PreferenceFragment : Fragment() {
         val myRef = firebaseDB.getReference("Users/$myUserId/$variabile")
         myRef.setValue(newValue)
             .addOnSuccessListener {
-                println("Dati aggiornati con successo") // Operazione riuscita
-                Toast.makeText(requireContext(), "Dati aggiornati", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Dati aggiornati", Toast.LENGTH_SHORT).show() // Operazione riuscita
             }
             .addOnFailureListener {
-                println("Errore durante l'aggiornamento dei dati: ${it.message}") // Gestione dell'errore
-                Toast.makeText(requireContext(), "Errore Update", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Errore Update", Toast.LENGTH_SHORT).show() // Gestione dell'errore
             }
     }
 
@@ -146,24 +144,24 @@ class PreferenceFragment : Fragment() {
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {
-                    val key = childSnapshot.key
-                    val value = childSnapshot.value as Boolean
-
-                    // Imposta lo stato delle checkbox in base ai valori salvati nel database
-                    when (key) {
-                        "scienza" -> scienza = value
-                        "natura" -> natura = value
-                        "storia" -> storia = value
-                        "arte" -> arte = value
-                        "corpo" -> corpo = value
-                        "viaggi" -> viaggi = value
-                        "cibo" -> cibo = value
+                    val key = childSnapshot.key.toString()
+                    val value = childSnapshot.value
+                    // Assicurati che il valore sia un Boolean
+                    if (value is Boolean) {
+                        when (key) {
+                            "scienza" -> scienza = value
+                            "natura" -> natura = value
+                            "storia" -> storia = value
+                            "arte" -> arte = value
+                            "corpo" -> corpo = value
+                            "viaggi" -> viaggi = value
+                            "cibo" -> cibo = value
+                        }
                     }
-                }
 
+                }
                 // Aggiorna l'interfaccia utente con i nuovi valori delle checkbox
-                myAdapter.notifyDataSetChanged()
-                //myAdapter.setCheckboxStates(scienza, natura, storia, arte, corpo, viaggi, cibo)
+                myAdapter.setCheckboxStates(scienza, natura, storia, arte, corpo, viaggi, cibo)
             }
 
             override fun onCancelled(error: DatabaseError) {
