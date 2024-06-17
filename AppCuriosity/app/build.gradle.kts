@@ -57,4 +57,5 @@ dependencies {
     implementation("com.airbnb.android:lottie:3.4.1")
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation ("androidx.fragment:fragment-ktx:1.4.0")
 }

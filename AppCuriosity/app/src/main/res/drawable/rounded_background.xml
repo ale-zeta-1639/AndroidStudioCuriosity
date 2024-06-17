@@ -1,0 +1,6 @@
+<!-- rounded_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="8dp" /> <!-- Imposta il raggio dei bordi (8dp per esempio) -->
+    <solid android:color="@color/lavander_back" /> <!-- Colore di riempimento dello sfondo -->
+</shape>

@@ -10,13 +10,20 @@ class User {
     private var corpo: Boolean = false
     private var viaggi: Boolean = false
     private var cibo: Boolean = false
-    private var formatoOra : String = ""
-    private var valoreOra : String = ""
+    private var formatoOra : Boolean = true
+    private var valoreOra : String = "1"
+    private var countConosciuti : Float = 0f
+    private var countSconosciuti : Float = 0f
 
     constructor(mail: String?){
         this.mail = mail
         this.first = false
     }
+
+    fun getCountConosciuti(): Float{return countConosciuti}
+    fun getCountSconosciuti(): Float{return countSconosciuti}
+    fun setCountConosciuti(value:Float) {countConosciuti=value}
+    fun setCountSconosciuti(value:Float) {countSconosciuti=value}
 
     fun getMail(): String { return mail.toString() }
     fun getFirst(): Boolean { return first}
@@ -29,7 +36,7 @@ class User {
     fun getCorpo():Boolean {return corpo}
     fun getViaggi():Boolean {return viaggi}
     fun getCibo():Boolean {return cibo}
-    fun getFormatoOra():String {return formatoOra}
+    fun getFormatoOra():Boolean {return formatoOra}
     fun getValoreOra():String {return valoreOra}
 
 
@@ -40,7 +47,7 @@ class User {
     fun setCorpo(value:Boolean) {corpo=value}
     fun setViaggi(value:Boolean) {viaggi=value}
     fun setCibo(value:Boolean) {cibo=value}
-    fun setFormatoOra(value:String) {formatoOra=value}
+    fun setFormatoOra(value:Boolean) {formatoOra=value}
     fun setValoreOra(value:String) {valoreOra=value}
 
 

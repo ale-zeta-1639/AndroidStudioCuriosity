@@ -1,5 +1,6 @@
 package com.example.appcuriosity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,9 +23,9 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment per il setup del tempo di ricezione delle notifiche
+ * Bullet-List per la scelta del formato ora \ minuti
+ * Drop-Menu per la quantità di tempo
  */
 class SettingsFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -34,6 +35,7 @@ class SettingsFragment : Fragment() {
     private lateinit var firebaseDB: FirebaseDatabase
 
     private lateinit var myUserId: String
+    private var isFirst : Int = 0
     private lateinit var autoComplete: AutoCompleteTextView
     private lateinit var radio: RadioGroup
     private lateinit var buttonConferma: Button
@@ -60,6 +62,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         myUserId = requireArguments().getString("userId").toString()
+        isFirst = requireArguments().getInt("isFirst")
         val hours = resources.getStringArray(R.array.ora)
         val min = resources.getStringArray(R.array.minuti)
 
@@ -95,10 +98,19 @@ class SettingsFragment : Fragment() {
         buttonConferma.setOnClickListener {
             updateSettingsInDB(myUserId, "valoreOra", selectedTime)
             updateSettingsInDB(myUserId, "formatoOra", isHour)
+            if(isFirst>0){
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.putExtra("userId", myUserId)
+                intent.putExtra("isFirst", 1)
+                startActivity(intent)
+            }
         }
 
     }
 
+    /*
+    * metodo per l'inizializzazione dei valori con quelli presenti su DB
+    * */
     private fun initializeSettings(myUserId: String) {
         firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
         val myRef = firebaseDB.getReference("Users/$myUserId")
@@ -126,6 +138,9 @@ class SettingsFragment : Fragment() {
         })
     }
 
+    /*
+    * metodo per l'upgrade su dp a seguito della pressione del button
+    * */
     private fun updateSettingsInDB(myUserId: String, key: String, value: Any?) {
         val myRef = firebaseDB.getReference("Users/$myUserId/$key")
         myRef.setValue(value)

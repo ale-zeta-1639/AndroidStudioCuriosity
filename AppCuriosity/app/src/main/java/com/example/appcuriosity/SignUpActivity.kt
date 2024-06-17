@@ -51,6 +51,9 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    /*
+    * salvataggio dei dati con realizzazione gerarchia del DB
+    * */
     private fun saveData(email:String){
         val user = User(email)
         user.setFirst(true)

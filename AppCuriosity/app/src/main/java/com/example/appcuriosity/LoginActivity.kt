@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var isFirst : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,15 @@ class LoginActivity : AppCompatActivity() {
 
                         searchEmailInDatabase(email){ userId ->
                             if (userId != null) {
-                                val mainIntent = Intent(this, MainActivity::class.java).putExtra("userId", userId)
-                                startActivity(mainIntent)
+                                if(isFirst){
+                                    val Intent = Intent(this, SplashActivity::class.java).putExtra("userId", userId)
+                                    startActivity(Intent)
+                                }else{
+                                    val mainIntent = Intent(this, MainActivity::class.java)
+                                    mainIntent.putExtra("userId", userId)
+                                    mainIntent.putExtra("isFirst", -1)
+                                    startActivity(mainIntent)
+                                }
                             } else {
                                 Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
                             }
@@ -56,6 +64,9 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        /*
+        * creazione di un AlertDialog personalizzato da layout per la richiesta del forgot password, quindi con invio main
+        * */
         binding.forgotPassword.setOnClickListener{
             val builder = AlertDialog.Builder(this)
             val view = layoutInflater.inflate(R.layout.dialog_forgot, null)
@@ -95,6 +106,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    /*
+    * metodo che si occupa di confrontare la mail inserita nei campi con le mail presenti sul DB
+    * return : userID
+    * */
     private fun searchEmailInDatabase(email: String,  callback: (String?) -> Unit) {
         val database = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
         val usersRef = database.getReference("Users") // Nodo principale "users"
@@ -110,6 +125,10 @@ class LoginActivity : AppCompatActivity() {
                         // Email trovata, esegui l'azione necessaria
                         //println("Email trovata: $userEmail in ${userSnapshot.key}")
                         userFound = userSnapshot.key
+                        val first = userSnapshot.child("first").getValue(Boolean::class.java)
+                        if (first != null) {
+                            isFirst = first
+                        }
                         break
                     }
                 }

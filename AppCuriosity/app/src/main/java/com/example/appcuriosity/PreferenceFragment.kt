@@ -1,5 +1,6 @@
 package com.example.appcuriosity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,9 @@ import com.google.firebase.database.ValueEventListener
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+/*
+* Fragment per la selezione delle checkbox contente le preferende degli argomenti delle curiosità
+* */
 class PreferenceFragment : Fragment() {
 
     private var param1: String? = null
@@ -28,6 +32,7 @@ class PreferenceFragment : Fragment() {
 
     lateinit var titleList: Array<String>
     private lateinit var myUserId: String
+    private var isFirst : Int = 0
 
     private var scienza :Boolean = false
     private var natura :Boolean = false
@@ -37,10 +42,10 @@ class PreferenceFragment : Fragment() {
     private var viaggi :Boolean = false
     private var cibo :Boolean = false
 
+
     /* base output per Fragment
     * Toast.makeText(requireContext(), "Tutto ok", Toast.LENGTH_SHORT).show()
     * */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -81,6 +86,7 @@ class PreferenceFragment : Fragment() {
         recycleView.isClickable = true
 
         myUserId = requireArguments().getString("userId").toString()
+        isFirst = requireArguments().getInt("isFirst")
 
         initializeCheckboxValues(myUserId)
 
@@ -95,36 +101,44 @@ class PreferenceFragment : Fragment() {
             when (task.dataTitle) {
                 "Scienza e Tecnologia" -> {
                     scienza = updateBooleanCheck(scienza)
-                    upDateOnDB(myUserId, "scienza", scienza) }
+                    upDateOnDB(myUserId, "scienza", scienza)}
                 "Natura e Ambiente" -> {
                     natura = updateBooleanCheck(natura)
-                    upDateOnDB(myUserId, "natura", natura) }
+                    upDateOnDB(myUserId, "natura", natura)}
                 "Storia e Cultura" -> {
                     storia = updateBooleanCheck(storia)
-                    upDateOnDB(myUserId, "storia", storia) }
+                    upDateOnDB(myUserId, "storia", storia)}
                 "Arte e Intrattenimento" -> {
                     arte = updateBooleanCheck(arte)
-                    upDateOnDB(myUserId, "arte", arte) }
+                    upDateOnDB(myUserId, "arte", arte)}
                 "Corpo e Mente" -> {
                     corpo = updateBooleanCheck(corpo)
-                    upDateOnDB(myUserId, "corpo", corpo) }
+                    upDateOnDB(myUserId, "corpo", corpo)}
                 "Viaggi e Esplorazione"-> {
                     viaggi = updateBooleanCheck(viaggi)
-                    upDateOnDB(myUserId, "viaggi", viaggi) }
+                    upDateOnDB(myUserId, "viaggi", viaggi)}
                 "Cibo e Cucina"-> {
                     cibo = updateBooleanCheck(cibo)
-                    upDateOnDB(myUserId, "cibo", cibo) }
+                    upDateOnDB(myUserId, "cibo", cibo)}
             }
-
+            if(isFirst>=0){
+                val intent = Intent(activity, MainActivity::class.java)
+                intent.putExtra("userId", myUserId)
+                intent.putExtra("isFirst", 0)
+                startActivity(intent)
+            }
         }
-
     }
+
 
     private fun updateBooleanCheck(value:Boolean) : Boolean{
         if(value == false) {return true}
         else {return false}
     }
 
+    /*
+    * motodo che esegue upgrade al Db del relativo campo selezionato
+    * */
     private fun upDateOnDB(myUserId: String, variabile: String, newValue: Boolean){
         firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
         val myRef = firebaseDB.getReference("Users/$myUserId/$variabile")
@@ -137,6 +151,9 @@ class PreferenceFragment : Fragment() {
             }
     }
 
+    /*
+    * metodo per l'inizializzazione delle checkBox con i valori persenti nel DB
+    * */
     private fun initializeCheckboxValues(myUserId: String) {
         val firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
         val myRef = firebaseDB.getReference("Users/$myUserId")

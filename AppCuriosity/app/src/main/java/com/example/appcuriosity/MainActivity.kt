@@ -27,12 +27,19 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Progetto Curiosity
+ * @author Alessandro Zancanella
+ * Matricola : 751494
+ * */
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, GraficUpdate, MainActivityListener{
 
     private lateinit var drawerLayout: DrawerLayout
     private var userId: String = ""
 
+    private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var myUserId: String
+    private var countConfigurazione : Int = 0
     var topicsList: MutableList<String> = mutableListOf()
 
     private var scienza :Boolean = false
@@ -43,6 +50,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var viaggi :Boolean = false
     private var cibo :Boolean = false
 
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var settingsFragment: SettingsFragment
+    private lateinit var preferenceFragment: PreferenceFragment
+    private lateinit var navigationView : NavigationView
 
     /* base output
     * Toast.makeText(this, "tutto OK", Toast.LENGTH_SHORT).show()
@@ -51,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private companion object{
         private const val CHANNEL_ID = "default"
         private const val NOTIFICATION_ID = 1
-        private val NOTIFICATION_DELAY = 5000L  // 5 secondi di ritardo
+        private var NOTIFICATION_DELAY = 5000L  // 5 secondi di ritardo
         private var button1Clicked = false
         private var button2Clicked = false
     }
@@ -215,45 +226,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         myUserId = intent.getStringExtra("userId").toString()
-
-        initializeTopicList(userId) { success ->
-            if (success) {  // La lista è stata popolata correttamente
-                if (topicsList.isEmpty()) {
-                    println("La lista è vuota.")
-                } else {
-                    println("La lista contiene ${topicsList.size} elementi: $topicsList")
-                }
-                addTopicsIfNeeded()
-            } else {
-                println("Errore durante l'inizializzazione della lista.")
-            }
-        }
-
+        countConfigurazione = intent.getIntExtra("isFirst",0)
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         userId = intent.getStringExtra("userId").toString()  //ricezione dell'id utente dall'activity precedente
 
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        var navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle ( this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
-        if(savedInstanceState == null) {
-            // Creazione dell'istanza del Fragment e impostazione degli argomenti
-            val homeFragment = HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString("userId", userId)
-                }
-            }
-            // Aggiunta del Fragment iniziale
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, homeFragment).commit()
-            navigationView.setCheckedItem(R.id.nav_home)
-        }
 
         // Register the receiver to handle button click
         val filter = IntentFilter().apply {
@@ -262,13 +247,78 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         registerReceiver(notificationButtonReceiver, filter)
 
-        // Chiamata al metodo per creare la notifica
-        createNotification()
+        if(savedInstanceState == null) {
+            // Creazione dell'istanza del Fragment e impostazione degli argomenti
+            homeFragment = HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString("userId", userId)
+                }
+            }
+            settingsFragment = SettingsFragment().apply {
+                arguments = Bundle().apply {
+                    putString("userId", userId)
+                    putInt("isFirst", countConfigurazione)
+                }
+            }
+            preferenceFragment = PreferenceFragment().apply {
+                arguments = Bundle().apply {
+                    putString("userId", userId)
+                    putInt("isFirst", countConfigurazione)
+                }
+            }
+
+            if(countConfigurazione>=0){
+
+                if(countConfigurazione==2){
+                    // Aggiunta del Fragment iniziale
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, settingsFragment)
+                        .commit()
+                    navigationView.setCheckedItem(R.id.nav_settings)
+                }
+                if(countConfigurazione == 1){
+                    // Aggiunta del Fragment iniziale
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, preferenceFragment)
+                        .commit()
+                    navigationView.setCheckedItem(R.id.nav_preference)
+                }
+                if (countConfigurazione == 0){
+                    val bool : Boolean = false
+                    updateFirst(userId,"first",bool)
+                    countConfigurazione--
+                    startActivity()
+                }
+            }else{
+                startActivity()
+            }
+        }
+
+    }
+
+    /*
+    * Metodo per l'avvio delle notifiche e configurazione fragment principale
+    * */
+    fun startActivity(){
+        // Aggiunta del Fragment iniziale
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, homeFragment).commit()
+        navigationView.setCheckedItem(R.id.nav_home)
+
+        initializeTopicList(userId) { success ->
+            addTopicsIfNeeded() //aggiungi elementi selezionati alla lista
+            if (success) {
+                // Chiamata al metodo per creare la notifica
+                createNotification()
+            } else {
+                //println("Errore durante l'inizializzazione della lista.")
+                Toast.makeText(this, "#ERR_1 Errore inizilizzazione", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun addTopicsIfNeeded() {
         // Aggiungi elementi a topicsList solo se selezionati nel DB
-        // Questo metodo verrà chiamato solo dopo che initializeTopicList ha completato
         if (scienza) topicsList.add("Scienza e Tecnologia")
         if (natura) topicsList.add("Natura e Ambiente")
         if (storia) topicsList.add("Storia e Cultura")
@@ -276,12 +326,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (corpo) topicsList.add("Corpo e Mente")
         if (viaggi) topicsList.add("Viaggi e Esplorazione")
         if (cibo) topicsList.add("Cibo e Cucina")
-
-        if (topicsList.isEmpty()) {
-            Toast.makeText(this, "Topic List vuota", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(this, "Topic List Creata", Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun onDestroy() {
@@ -289,9 +333,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         unregisterReceiver(notificationButtonReceiver)
     }
 
+    override fun onAlertDialogShown(): String {
+        // Metodo chiamato quando l'AlertDialog è stato mostrato nel Fragment
+        return chooseCuriosity()
+    }
+
+    /*
+    * metodo per la creazione delle notifiche, esegue il setUp del Delay tra una notifica e l'altra,
+    * assegna le azioni dei rispettipi pulsanti
+    * costrisce la notifica generando il testo e richiamando costustorNotify
+    * */
     private fun createNotification() {
         // Contenuto della notifica
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        initializeTimerDelay()  //setTime delay tra notifiche
 
         // Verifica se il canale di notifica esiste già
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -314,12 +369,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (curiosityTextNotify.isNotEmpty()){
             costructorNotify(notificationManager,pendingIntentAction1,pendingIntentAction2,curiosityTextNotify)
         }else{
-            Toast.makeText(this, "Aggiungi preferenze di argomento nel Preference", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "#ERR_3 Aggiungi preferenze di argomento nel Preference", Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    private fun chooseCuriosity(): String {
+    /*
+    * esegue un random sulle categorie e poi sulla curiosità da riportare
+    * */
+    fun chooseCuriosity(): String {
         // Selezione casuale di una curiosità
         var randomCuriosity : String = ""
 
@@ -361,6 +419,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return randomCuriosity
     }
 
+    /*
+    * metodo Costruttore della notifica
+    * */
     private fun costructorNotify(
         notificationManager: NotificationManager,
         pendingIntentAction1: PendingIntent,
@@ -385,6 +446,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
+    /*
+    * Metodo designato alla gestione delle task dei button
+    * */
     private val notificationButtonReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             // Generate a new notification when the button is pressed
@@ -393,14 +457,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // Gestione delle azioni dei bottoni qui
             when (intent?.action) {
                 "ACTION_1" -> { // Azione per il primo bottone
-                    Toast.makeText(context, "Button 1 clicked", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Button 1 clicked", Toast.LENGTH_SHORT).show()
                     notificationManager.cancel(NOTIFICATION_ID) // Elimina la notifica
                     button1Clicked = true
+                    updateConosciuti()
                 }
                 "ACTION_2" -> { // Azione per il secondo bottone
-                    Toast.makeText(context, "Button 2 clicked", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Button 2 clicked", Toast.LENGTH_SHORT).show()
                     notificationManager.cancel(NOTIFICATION_ID) // Elimina la notifica
                     button2Clicked = true
+                    updateSconosciuti()
                 }
             }
             if (button1Clicked || button2Clicked) {
@@ -409,46 +475,92 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     button2Clicked=false
                     createNotification()
                 }, NOTIFICATION_DELAY)
-
             }
         }
     }
 
+    /*
+    * metodo che si occupa della conversione dei dati estrapolati dal DB e resi in formato millisec.
+    * */
+    private fun initializeTimerDelay() {
+        firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        val myRef = firebaseDB.getReference("Users/$myUserId")
+        var selectedTime: String
+        var isHour: Boolean
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                selectedTime = dataSnapshot.child("valoreOra").value as String
+                isHour = dataSnapshot.child("formatoOra").value as Boolean
+
+                if (isHour) {
+                    // Se è selezionata l'ora, calcola il ritardo in ore
+                    val delayHours = selectedTime.toInt() * 3600 * 1000 // Converti ore in millisecondi
+                    NOTIFICATION_DELAY = delayHours.toLong()
+                } else {
+                    // Se è selezionato il minuto, calcola il ritardo in minuti
+                    val delayMinutes = selectedTime.toInt() * 60 * 1000 // Converti minuti in millisecondi
+                    NOTIFICATION_DELAY = delayMinutes.toLong()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "ERR_4 Errore durante il recupero dei dati", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    override fun updateConosciuti() {
+        val homeFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? HomeFragment
+        homeFragment?.updateConosciuti()
+    }
+
+    override fun updateSconosciuti() {
+        val homeFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? HomeFragment
+        homeFragment?.updateSconosciuti()
+    }
+
+    /*
+    * metodo che si occupa di aggiornare il DB segnalado il primo accesso compiuto dall'utente
+    * */
+    private fun updateFirst(myUserId: String, key: String, value: Boolean){
+        firebaseDB = FirebaseDatabase.getInstance("https://appcuriosity-5688a-default-rtdb.europe-west1.firebasedatabase.app/")
+        val myRef = firebaseDB.getReference("Users/$myUserId/$key")
+        myRef.setValue(value)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Configurazione terminata", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "#Err_5 Errore durante l'aggiornamento", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    /*
+    * Metodo che si occupa della navigazione nel Menu
+    * */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_home -> {
-                val homeFragment = HomeFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("userId", userId)
-                    }
-                }
                 supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, homeFragment).commit()
+                    .replace(R.id.fragment_container, homeFragment).commit()
             }
 
             R.id.nav_settings -> {
-                val settingsFragment = SettingsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("userId", userId)
-                    }
-                }
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, settingsFragment)
                     .commit()
             }
 
             R.id.nav_preference -> {
-                val preferenceFragment = PreferenceFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("userId", userId)
-                    }
-                }
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, preferenceFragment)
                     .commit()
             }
 
-            R.id.nav_logout -> Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+            R.id.nav_logout -> {Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+                val Intent = Intent(this, LoginActivity::class.java)
+                startActivity(Intent)
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -468,23 +580,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                     if (value is Boolean) { // da sistemare
                         when (key) {
-                            "scienza" -> scienza = value
-                            "natura" -> natura = value
-                            "storia" -> storia = value
-                            "arte" -> arte = value
-                            "corpo" -> corpo = value
-                            "viaggi" -> viaggi = value
-                            "cibo" -> cibo = value
+                            "scienza" -> {scienza = value
+                                outBack = true}
+                            "natura" -> {natura = value
+                                outBack = true}
+                            "storia" -> {storia = value
+                                outBack = true}
+                            "arte" -> {arte = value
+                                outBack = true}
+                            "corpo" -> {corpo = value
+                                outBack = true}
+                            "viaggi" -> {viaggi = value
+                                outBack = true}
+                            "cibo" -> {cibo = value
+                                outBack = true}
                         }
                     }
 
                 }
-                outBack = topicsList.isNotEmpty()
                 callback(outBack)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Errore nel recupero dei dati", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "#ERR_1 Errore nel recupero dei dati", Toast.LENGTH_SHORT).show()
             }
         })
     }
